@@ -4,15 +4,17 @@ setup(
     name='medseg_evaluator',
     version='0.1.0',
     author='Darshan Dathiya',
-    author_email='your_email@example.com',
+    author_email='darshandathiya2@gmail.com',
     description='Evaluation toolkit for medical image segmentation models',
     packages=find_packages(),
     install_requires=[
         'numpy',
         'pandas',
+        'cv2',
         'matplotlib',
         'scipy',
         'scikit-image',
-        'nibabel'
+        'nibabel',
+        'pydicom'
     ],
 )
