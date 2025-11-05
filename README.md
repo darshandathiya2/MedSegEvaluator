@@ -23,8 +23,8 @@ MedSegEvaluator is a modular Python library designed for comprehensive evaluatio
 
 While traditional tools stop at Dice or IoU, **MedSegEvaluator** goes beyond by incorporating:
 - Structural metrics (ASD, HD95)  
-- Morphological statistics (volume, island count)  
-- Image quality measures (SNR, entropy, blur)  
+- Morphological statistics (volume, island count)
+- Visulization of Contour overlays, histograms, and boxplots for metric distributions
 
 This makes it ideal for **robustness studies**, **comparative model evaluation**, and **clinical reproducibility** research.
 
