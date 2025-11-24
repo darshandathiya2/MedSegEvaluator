@@ -3,7 +3,7 @@ Quickstart
 
 The simplest pipeline:
 
-..code-block:: python
+.. code-block:: python
 
     from perforamce_visualization import visualize_image_contour_3d
 
@@ -11,7 +11,7 @@ The simplest pipeline:
 
 or 
 
-..code-block:: python
+.. code-block:: python
 
     from performance_metrics import evaluate_all_metrics
 
@@ -19,6 +19,5 @@ or
     for k, v in results.items():
         print(f"{k}: {v:.4f}")
     
-
 
 
