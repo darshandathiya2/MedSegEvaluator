@@ -10,7 +10,7 @@ setup(
     install_requires=[
         'numpy',
         'pandas',
-        'cv2',
+        'opencv-python',
         'matplotlib',
         'seaborn',
         'scipy',
