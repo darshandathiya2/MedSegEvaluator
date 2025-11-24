@@ -20,6 +20,10 @@ extensions = [
 
 autosummary_generate = True
 
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = "sphinx_rtd_theme"
+
 # Optional: If your code imports tensorflow or cv2 add this:
 autodoc_mock_imports = [
     'tensorflow', 'keras', 'cv2', 'numpy', 'pandas', 'nibabel', 'pydicom'
