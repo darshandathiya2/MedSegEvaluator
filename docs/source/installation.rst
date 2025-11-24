@@ -1,7 +1,8 @@
 Installation
 ============
+There are two ways to use MedSegEvaluator: 1. Install via pip 2. Install from source.
 
-Install from pip (if published):
+***Install from pip (if published):***
 
 .. code-block:: bash
 
