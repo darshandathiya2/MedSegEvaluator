@@ -1,16 +1,16 @@
 MedSegEvaluator Documentation
 =============================
 
-Welcome to the official documentation of **MedSegEvaluator**, a lightweight and
-modular evaluation toolkit for medical image segmentation models.
+Welcome to the official documentation of **MedSegEvaluator**, a modular Python library designed for comprehensive evaluation of medical image segmentation models, focusing on accuracy and robustness model. It provides an easy-to-use framework to assess segmentation performance across multiple dimensions, from voxel-level similarity to volumetric and morphological consistency.
 
 MedSegEvaluator provides:
-- Slice-level and volume-level Dice computation
-- Support for multiple perturbations to assess model robustness
-- Global Robustness Score (GRS)
-- Visualization utilities
-- Easy integration into any deep learning pipeline
-
+\begin{enamurate}
+ \item Slice-level and volume-level Dice computation
+ \item Support for multiple perturbations to assess model robustness
+ \item Global Robustness Score (GRS)
+ \item Visualization utilities
+ \item Easy integration into any deep learning pipeline
+\end{enamurate}
 ------------
 Installation
 ------------
