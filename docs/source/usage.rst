@@ -43,6 +43,7 @@ To plot the Bland-Altman Plot:
 To compute the global robustness score under perturbation:
 
 .. code-block:: python
+
     from medicalimageloader import MedicalImageLoader
     from performance_metrics import global_robustness_score
     # Create loader (normalize=True scales intensities to [0,1])
