@@ -7,6 +7,8 @@ Usage
 - The sample data is available in ``MedSegEvaluator/data``
 - Use jupyter notebook or google colab to run the 2D or 3D example, located in ``MedSegEvaluator/Examples``
 
+**Performance Analysis**
+
 To visualize the image along with its ground truth and predicted output:
 
 .. code-block:: python
