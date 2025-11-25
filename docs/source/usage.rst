@@ -27,3 +27,15 @@ To evaluate all performance metrics for the single ground truth and predicted ou
     for k, v in results.items():
         print(f"{k}: {v:.4f}")
 
+To plot the Bland-Altman Plot:
+
+.. code-block:: python
+
+    # Bland-Altman plot for GT volume and predicted volume
+     from bland_altman_plot import bland_altman_plot
+    
+    gt_volume = np.array(df_results['GT_Volume'])
+    inf_volume = np.array(df_results['INF_Volume'])
+
+    bland_altman_plot(gt_volume, inf_volume, title="Bland-Altman Plot: Tumor Volume (mm³)",
+        xlabel="Mean Volume", ylabel="Difference (Prediction - Ground Truth)", units='mm³')
