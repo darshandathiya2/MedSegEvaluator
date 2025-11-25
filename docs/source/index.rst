@@ -30,7 +30,6 @@ Documentation Contents
 
    getting_started
    installation
-   quickstart
    usage
    perturbation
    evaluatation_pipeline
