@@ -7,4 +7,11 @@ This page documents MedSegEvaluator's visualization tools for exploring metric d
     :local:
     :depth: 2
 
+MedSegEvaluator provides three primary visualization functions:
+
+- **Histogram:** visualize distribution of a metric (Dice, IoU, etc.).  
+- **Box Plot:** compare distributions across groups (models, perturbations).  
+- **Bland–Altman Plot:** — analyze agreement and bias between two sets of measurements (e.g., GT vs prediction, or model A vs                                          model B).
+
+
 
