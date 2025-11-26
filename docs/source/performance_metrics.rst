@@ -161,6 +161,10 @@ The 95th Percentile Hausdorff Distance (HD95) is a robust version of the Hausdor
 
 .. math::
 
-HD_{95}(A, B) = \max \big( P_{95}\big(d(A, B)\big), \, P_{95}\big(d(B, A)\big) \big),
+    HD_{95}(A, B) = \max \big( P_{95}\big(d(A, B)\big), \, P_{95}\big(d(B, A)\big) \big),
 
-where :math: `d(A, B) = \{ \min_{b \in B} \| a - b \| \, | \, a \in A \}` and :math: `P_{95}(\cdot)`denotes the 95th percentile operator.
+where :math: `P_{95}(\cdot)`denotes the 95th percentile operator and
+
+.. math::
+
+    d(A, B) = \{ \min_{b \in B} \| a - b \| \, | \, a \in A \} 
