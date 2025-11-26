@@ -5,6 +5,7 @@ MedSegEvaluator provides a wide range of segmentation metrics grouped into
 four categories: region-level overlap, boundary accuracy, surface distances,
 and volumetric agreement.
 
+
 .. contents::
    :local:
    :depth: 2
