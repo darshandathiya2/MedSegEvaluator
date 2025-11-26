@@ -147,3 +147,8 @@ Formula:
 .. math::
 
   \text{HD}(X, Y) = \max \left\{ \sup_{x \in X} \inf_{y \in Y} d(x, y),; \sup_{y \in Y} \inf_{x \in X} d(x, y) \right\}. 
+
+Usage::
+
+  from performance_metrics import hausdorff_distance
+  HD = hausdorff_distance(gt, pred)
