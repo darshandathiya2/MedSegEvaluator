@@ -1,45 +1,42 @@
 Performance Metrics
 ===================
 
-MedSegEvaluator provides a comprehensive suite of metrics for assessing 
-medical image segmentation quality. These metrics cover region-level 
-overlap, boundary accuracy, surface distances, and volumetric agreement.
-
-
-This page describes each metric, its mathematical formulation, and 
-how to compute it using MedSegEvaluator.
-
-Overview
---------
-
-The available segmentation metrics include:
-
-- **Region-Level Overlap**
-
-   - Dice Similarity Coefficient
-   - Intersection over Union (IoU)
-   - Precision & Recall
-   - F1 Score
-
-- **Boundary Accuracy**
-
-   - Hausdorff Distance (HD95)
-
-- **Surface Distances**
-
-   - Average Symmetric Surface Distance (ASSD)
-   - Surface Dice
-
-- **Volumetric Agreement**
-
-   - Volume Similarity (VS)
-
-Content
--------
+MedSegEvaluator provides a wide range of segmentation metrics grouped into
+four categories: region-level overlap, boundary accuracy, surface distances,
+and volumetric agreement.
 
 .. contents::
    :local:
    :depth: 2
+
+
+Overview
+========
+
+This section summarizes the four major categories of segmentation metrics
+available in MedSegEvaluator.
+
+- **Region-Level Overlap**  
+  Measures overlap quality between prediction and ground truth masks.
+
+- **Boundary Accuracy**  
+  Measures how well predicted boundaries align with the true anatomical contour.
+
+- **Surface Distances**  
+  Measures geometric distances between the surfaces of two segmentations.
+
+- **Volumetric Agreement**  
+  Measures how similar the region volumes are between prediction and ground truth.
+
+Each category captures different aspects of segmentation performance.
+
+
+====================================
+Region-Level Overlap
+====================================
+
+Metrics that quantify **overlap agreement** between the predicted and ground truth
+masks.
 
 
 Dice Similarity Coefficient
