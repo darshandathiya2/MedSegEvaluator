@@ -159,8 +159,15 @@ Usage::
 
 The 95th Percentile Hausdorff Distance (HD95) is a robust version of the Hausdorff Distance. Instead of the maximum surface deviation, it computes the 95th percentile of all boundary distances.
 
+Formula:
+
 .. math::
 
     HD_{95}(A, B) = \max \big( P_{95}\big(d(A, B)\big), \, P_{95}\big(d(B, A)\big) \big),
 
 where :math:`P_{95}(\cdot)` denotes the 95th percentile operator and :math:`d(A, B)` be all distances from prediction boundary :math:`A` to ground truth :math:`B`, and :math:`d(B, A)` is vice-versa.
+
+Usage::
+
+  from performance_metrics import hd95
+  HD95 = hd94(gt, pred)
