@@ -49,7 +49,7 @@ Formula:
 
     \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
 
-Where :math:`TP`,:math:`TN`,  :math:`FP`, and :math:`FN` are True Positives, True Negatives, False Positives, and False Negatives  
+Where :math:`TP`, :math:`TN`, :math:`FP`, and :math:`FN` are True Positives, True Negatives, False Positives, and False Negatives  
 respectively.
 
 Usage::
