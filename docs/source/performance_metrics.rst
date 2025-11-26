@@ -34,12 +34,13 @@ Dice Similarity Coefficient
 The Dice coefficient measures the overlap between ground truth and 
 predicted segmentation.
 
-Formula::
+Formula:
+.. math::
 
-    Dice = (2 * |A ∩ B|) / (|A| + |B|)
+    Dice = \frac{2 \cdot |A \cap B|}{|A| + |B|}
 
 Where: 
-``A`` is the set of voxels in the ground truth mask, ``B`` is the set of voxels in the predicted mask.
+``A`` is the set of voxels/pixels in the ground truth mask, ``B`` is the set of voxels/pixels in the predicted mask.
 
 Usage::
 
