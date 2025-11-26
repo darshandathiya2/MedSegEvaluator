@@ -48,8 +48,7 @@ Formula:
 
     Dice = \frac{2 \cdot |A \cap B|}{|A| + |B|}
 
-Where: 
-:math:`A` is the set of voxels/pixels in the ground truth mask, :math:`B` is the set of voxels/pixels in the predicted mask.
+Where :math:`A` is the set of voxels/pixels in the ground truth mask, :math:`B` is the set of voxels/pixels in the predicted mask.
 
 Usage::
 
@@ -68,10 +67,27 @@ Formula:
 
    Precision = \frac{TP}{TP + FP}
 
-Where: :math:`TP` and :math:`FP` is  True Positives and False Negatives, respectively.
+Where :math:`TP` and :math:`FP` is  True Positives and False Negatives, respectively.
 
 Usage::
 
    from performance_metrics import precision
-   pres = precision(gt, pred)
+   prec = precision(gt, pred)
 
+Recall
+------
+
+A recall is a proportion of correctly predicted positive instances to the total actual positive instances. It measures the model's ability to correctly identify all true positive instances from the total number of actual positive cases.
+
+Formula:
+
+.. math::
+
+  Recall = \frac{TP}{TP + FN}
+
+Where :math:`TP` and :math:`FN` is  True Positives and False Negatives, respectively.
+
+Usage::
+
+  from performance_metrics import recall
+  rc = recall(gt, pred)
