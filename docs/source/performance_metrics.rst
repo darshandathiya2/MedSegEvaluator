@@ -89,6 +89,10 @@ Formula:
 
 Where :math:`TP` and :math:`FN` is  True Positives and False Negatives, respectively.
 
+Usage::
+
+  from performance_metrics import recall
+  rc = recall(gt, pred)
 
 Dice Similarity Coefficient
 ---------------------------
@@ -110,7 +114,4 @@ Usage::
     score = dice_score(gt, pred)
 
 
-Usage::
 
-  from performance_metrics import recall
-  rc = recall(gt, pred)
