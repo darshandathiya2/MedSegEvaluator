@@ -39,5 +39,4 @@ Formula::
     Dice = (2 * |A ∩ B|) / (|A| + |B|)
 
 Where:
-- ``A`` is the set of voxels in the ground truth mask.
-- ``B`` is the set of voxels in the predicted mask.
+ ``A`` is the set of voxels in the ground truth mask, and ``B`` is the set of voxels in the predicted mask.
