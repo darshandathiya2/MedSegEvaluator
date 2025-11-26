@@ -35,25 +35,27 @@ Region-Level Overlap
 Metrics that quantify **overlap agreement** between the predicted and ground truth
 masks.
 
+Accuracy
+--------
 
-Dice Similarity Coefficient
----------------------------
-
-The Dice coefficient measures the overlap between ground truth and 
-predicted segmentation.
+Accuracy measures the overall proportion of correctly classified pixels in the
+segmentation mask. Although commonly used in classification tasks, it should be
+interpreted cautiously for medical image segmentation, especially in the presence
+of class imbalance.
 
 Formula:
 
 .. math::
 
-    Dice = \frac{2 \cdot |A \cap B|}{|A| + |B|}
+    Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 
-Where :math:`A` is the set of voxels/pixels in the ground truth mask, :math:`B` is the set of voxels/pixels in the predicted mask.
+Where :math:`TP`,:math:`TN`,  :math:`FP`, and :math:`FN` are True Positives, True Negatives, False Positives, and False Negatives  
+respectively.
 
 Usage::
 
-    from performance_metrics import dice_score
-    score = dice_score(gt, pred)
+    from medsegevaluator.metrics import accuracy
+    score = accuracy(gt, pred)
 
 
 Precision
@@ -86,6 +88,27 @@ Formula:
   Recall = \frac{TP}{TP + FN}
 
 Where :math:`TP` and :math:`FN` is  True Positives and False Negatives, respectively.
+
+
+Dice Similarity Coefficient
+---------------------------
+
+The Dice coefficient measures the overlap between ground truth and 
+predicted segmentation.
+
+Formula:
+
+.. math::
+
+    Dice = \frac{2 \cdot |A \cap B|}{|A| + |B|}
+
+Where :math:`A` is the set of voxels/pixels in the ground truth mask, :math:`B` is the set of voxels/pixels in the predicted mask.
+
+Usage::
+
+    from performance_metrics import dice_score
+    score = dice_score(gt, pred)
+
 
 Usage::
 
