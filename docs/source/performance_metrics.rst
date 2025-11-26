@@ -13,6 +13,7 @@ Overview
 --------
 
 The available segmentation metrics include:
+
 .. contents::
    :local:
    :depth: 2
