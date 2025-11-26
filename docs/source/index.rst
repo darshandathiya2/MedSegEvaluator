@@ -31,6 +31,7 @@ Documentation Contents
    getting_started
    installation
    usage
+   performance_metrics
    perturbation
    evaluatation_pipeline
    robustness_metrics
