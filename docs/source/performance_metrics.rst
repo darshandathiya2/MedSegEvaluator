@@ -170,4 +170,4 @@ where :math:`P_{95}(\cdot)` denotes the 95th percentile operator and :math:`d(A,
 Usage::
 
   from performance_metrics import hd95
-  HD95 = hd94(gt, pred)
+  HD95 = hd95(gt, pred)
