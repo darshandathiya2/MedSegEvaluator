@@ -34,14 +34,12 @@ The available segmentation metrics include:
 
    - Volume Similarity (VS)
 
+Content
+-------
 
 .. contents::
-   
    :local:
    :depth: 2
-
-
-
 
 
 Dice Similarity Coefficient
