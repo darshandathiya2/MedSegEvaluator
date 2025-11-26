@@ -54,7 +54,7 @@ Formula:
     Dice = \frac{2 \cdot |A \cap B|}{|A| + |B|}
 
 Where: 
-$A$ is the set of voxels/pixels in the ground truth mask, $B$ is the set of voxels/pixels in the predicted mask.
+:math:`A` is the set of voxels/pixels in the ground truth mask, :math:`B` is the set of voxels/pixels in the predicted mask.
 
 Usage::
 
@@ -73,7 +73,7 @@ Formula:
 
    Precision = \frac{TP}{TP + FP}
 
-Where: ``TP`` and ``FP`` is  True Positives and False Negatives, respectively.
+Where: :math:`TP` and :math:`FP` is  True Positives and False Negatives, respectively.
 
 Usage::
 
