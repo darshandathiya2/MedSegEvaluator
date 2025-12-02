@@ -18,6 +18,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
+    'sphinx.ext.napoleon',  # for NumPy/Google style docstrings
 ]
 
 autodoc_default_options = {
