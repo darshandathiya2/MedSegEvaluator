@@ -1,8 +1,9 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../medsegevaluator'))
-sys.path.insert(0, os.path.abspath('../medsegevaluator/src'))
+#sys.path.insert(0, os.path.abspath('../medsegevaluator'))
+# Path to src folder inside medsegevaluator
+sys.path.insert(0, os.path.abspath('../../medsegevaluator/src'))
 
 # -- Project information -----------------------------------------------------
 
