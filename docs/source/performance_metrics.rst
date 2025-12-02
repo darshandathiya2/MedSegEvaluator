@@ -8,11 +8,6 @@ and volumetric agreement.
 .. currentmodule:: medsegevaluator.PerformanceMetrics
 
 
-.. autoclass:: PerformanceMetrics
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 The :class:`PerformanceMetrics` class provides a unified collection of
 region-based, surface-based, volumetric, and robustness metrics commonly used
 in medical image segmentation evaluation.
