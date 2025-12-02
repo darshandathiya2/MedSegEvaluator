@@ -28,6 +28,15 @@ Each category captures different aspects of segmentation performance.
    :depth: 2
 
 
+
+PerformanceMetrics Class
+------------------------
+
+.. autoclass:: PerformanceMetrics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 ====================================
 Region-Level Metrics
 ====================================
