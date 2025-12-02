@@ -1,10 +1,17 @@
 Performance Metrics
 ==================
 
+.. _performance-metrics:
+
+Performance Metrics Class
+-------------------------
+
 .. automodule:: medsegevaluator.PerformanceMetrics
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :member-order: bysource
+
 
 Overview
 --------
