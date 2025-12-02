@@ -20,8 +20,16 @@ per slice along a specified axis. Utility metrics include the Concordance Correl
 PerformanceMetrics Class
 -----------------------
 
+Performance Metrics
+===================
+
+This page documents the ``PerformanceMetrics`` class that provides various
+evaluation metrics for medical image segmentation.
+
 .. automodule:: medsegevaluator.PerformanceMetrics
     :members:
     :undoc-members:
     :show-inheritance:
     :member-order: bysource
+    :special-members: __init__
+
