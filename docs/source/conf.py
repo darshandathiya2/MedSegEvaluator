@@ -25,12 +25,15 @@ autodoc_default_options = {
     'members': True,
     'undoc-members': True,
     'show-inheritance': True,
-    'class-doc-from': 'class'
+    'autoclass_content': 'class'
 }
 
 
+
+
 # A list of ignored prefixes for module index sorting.
-modindex_common_prefix = ["medsegevalutor."]
+modindex_common_prefix = ["medsegevaluator."]
+
 
 autosummary_generate = True
 
