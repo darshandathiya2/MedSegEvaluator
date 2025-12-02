@@ -1,18 +1,10 @@
 Performance Metrics
 ==================
 
-.. currentmodule:: medsegevaluator.PerformanceMetrics
-
-Class: PerformanceMetrics
--------------------------
-
-.. autoclass:: PerformanceMetrics
+.. automodule:: medsegevaluator.PerformanceMetrics
    :members:
    :undoc-members:
    :show-inheritance:
-   :inherited-members:
-   :noindex:
-
 
 Overview
 --------
