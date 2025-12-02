@@ -18,6 +18,14 @@ extensions = [
     'sphinx.ext.napoleon',
 ]
 
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+    'class-doc-from': 'class'
+}
+
+
 # A list of ignored prefixes for module index sorting.
 modindex_common_prefix = ["medsegevalutor."]
 
