@@ -1,18 +1,34 @@
 Performance Metrics
 ===================
 
-MedSegEvaluator provides a wide range of segmentation metrics grouped into
-four categories: region-level overlap, boundary accuracy, surface distances,
-and volumetric agreement.
+.. currentmodule:: medsegevaluator.PerformanceMetrics
 
-Class Modules
---------------
-
-.. currentmodule:: medsegevaluator
+PerformanceMetrics Class
+------------------------
 
 .. autoclass:: PerformanceMetrics
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__
+   :exclude-members: __weakref__
 
+Overview
+--------
+
+The :class:`PerformanceMetrics` class provides a comprehensive set of evaluation
+methods for medical image segmentation. It includes region-based, surface-based,
+volume-based, robustness, slice-level (3D), and utility metrics.
+
+Example
+-------
+
+.. code-block:: python
+
+    from medsegevaluator.PerformanceMetrics import PerformanceMetrics
+
+    dice = PerformanceMetrics.dice_score(y_true, y_pred)
+    hd95 = PerformanceMetrics.hd95(y_true, y_pred)
+
+    all_metrics = PerformanceMetrics.evaluate_all_metrics(y_true, y_pred)
 
