@@ -1,34 +1,27 @@
+.. _performance-metrics-label:
+
+=================
 Performance Metrics
-==================
+=================
 
-.. _performance-metrics:
+This section contains the definitions of the various metrics used for segmentation evaluation.
+They are subdivided into the following categories:
 
-Performance Metrics Class
--------------------------
+* :py:class:`Region-based, Surface-based, Volume-based, and Robustness Metrics <medsegevaluator.PerformanceMetrics.PerformanceMetrics>` (all in one class)
+* :py:class:`Slice-level Metrics <medsegevaluator.PerformanceMetrics.PerformanceMetrics>` (3D)
+* :py:class:`Utility Metrics <medsegevaluator.PerformanceMetrics.PerformanceMetrics>`  
+
+All metrics can be applied to predicted and ground truth masks to evaluate segmentation performance.
+Surface-based metrics take voxel spacing into account if provided. Slice-level metrics compute statistics
+per slice along a specified axis. Utility metrics include the Concordance Correlation Coefficient (CCC).
+
+.. _performance-metrics-class-label:
+
+PerformanceMetrics Class
+-----------------------
 
 .. automodule:: medsegevaluator.PerformanceMetrics
     :members:
     :undoc-members:
     :show-inheritance:
     :member-order: bysource
-
-
-Overview
---------
-
-The :class:`PerformanceMetrics` class provides a comprehensive set of evaluation
-methods for medical image segmentation. It includes region-based, surface-based,
-volume-based, robustness, slice-level (3D), and utility metrics.
-
-Example
--------
-
-.. code-block:: python
-
-    from medsegevaluator.PerformanceMetrics import PerformanceMetrics
-
-    dice = PerformanceMetrics.dice_score(y_true, y_pred)
-    hd95 = PerformanceMetrics.hd95(y_true, y_pred)
-
-    all_metrics = PerformanceMetrics.evaluate_all_metrics(y_true, y_pred)
-
