@@ -8,7 +8,3 @@ Performance Metrics
     :member-order: bysource
 
 
-.. autosummary::
-   :toctree: _autosummary
-
-   PerformanceMetrics
