@@ -7,3 +7,8 @@ Performance Metrics
     :show-inheritance:
     :member-order: bysource
 
+
+.. autosummary::
+   :toctree: _autosummary
+
+   PerformanceMetrics
