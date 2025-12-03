@@ -8,7 +8,7 @@ It provides a variety of metrics for quantitative assessment of segmentation per
 Performance Metric Class (:mod:`medsegevaluator.PerformanceMetrics`)
 --------------------------------------------------------------------
 
-.. automodule:: medsegevaluator.PerformanceMetrics.PerformanceMetrics
+.. automodule:: medsegevaluator.PerformanceMetrics
     :members:
     :undoc-members:
     :show-inheritance:
