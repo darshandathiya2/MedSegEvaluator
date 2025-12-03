@@ -1,10 +1,6 @@
 import os
 import sys
-#sys.path.insert(0, os.path.abspath('../..'))
-
-
-basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, basedir)
+sys.path.insert(0, os.path.abspath('../..'))
 
 #-- Project information -----------------------------------------------------
 
@@ -27,8 +23,6 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.napoleon',
               'nbsphinx',
               'sphinx_copybutton']
-
-napoleon_use_ivar = True
 
 
 autodoc_default_options = {
