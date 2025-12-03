@@ -4,7 +4,7 @@ from scipy.ndimage import distance_transform_edt, binary_erosion
 from scipy.spatial.distance import directed_hausdorff
 
 class PerformanceMetrics:
-    r"""
+    """
     Comprehensive segmentation evaluation class.
 
     Metrics include:
@@ -24,7 +24,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def dice_score(y_true, y_pred):
-        r"""
+        """
         **Dice Coefficient**
 
         .. math::
@@ -40,7 +40,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def jaccard_index(y_true, y_pred):
-        r"""
+        """
         **Jaccard Index / IoU**
 
         .. math::
@@ -57,7 +57,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def precision(y_true, y_pred):
-        r"""
+        """
         **Precision**
 
         .. math::
@@ -72,7 +72,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def recall(y_true, y_pred):
-        r"""
+        """
         **Recall / Sensitivity**
 
         .. math::
@@ -87,7 +87,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def specificity(y_true, y_pred):
-        r"""
+        """
         **Specificity**
 
         .. math::
@@ -102,7 +102,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def accuracy(y_true, y_pred):
-        r"""
+        """
         **Accuracy**
 
         .. math::
@@ -122,7 +122,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def hausdorff_distance(y_true, y_pred):
-        r"""
+        """
         **Hausdorff Distance (HD)**
 
         .. math::
@@ -141,7 +141,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def hd95(y_true, y_pred):
-        r"""
+        """
         **95th Percentile Hausdorff Distance (HD95)**
         """
         y_true = y_true.astype(bool)
@@ -157,7 +157,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def average_surface_distance(y_true, y_pred, voxel_spacing=None):
-        r"""
+        """
         **Average Surface Distance (ASD)**
         """
         y_true = y_true.astype(bool)
@@ -183,7 +183,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def volumetric_similarity(y_true, y_pred):
-        r"""
+        """
         **Volumetric Similarity (VS)**
         """
         y_true = y_true.astype(bool)
@@ -195,7 +195,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def relative_volume_difference(y_true, y_pred):
-        r"""
+        """
         **Relative Volume Difference (RVD)**
         """
         y_true = y_true.astype(bool)
@@ -207,7 +207,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def intersection_over_union(y_true, y_pred):
-        r"""
+        """
         **Intersection over Union (IoU)**
 
         Alias for Jaccard Index
@@ -221,7 +221,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def dice_drop(original, perturbed, absolute=False):
-        r"""
+        """
         **Dice Drop**
 
         Difference between original and perturbed Dice scores.
@@ -232,7 +232,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def global_robustness_score(gt, pred, D_ref=10.0):
-        r"""
+        """
         **Global Robustness Score (GRS)**
 
         Combines Dice, HD95, and Concordance Correlation Coefficient.
@@ -265,7 +265,7 @@ class PerformanceMetrics:
                          ignore_empty_slices=True,
                          empty_slice_value=1.0,
                          smooth=1e-6):
-        r"""
+        """
         **Slice-wise Dice (3D)**
 
         Computes Dice for each slice along a given axis.
@@ -344,7 +344,7 @@ class PerformanceMetrics:
     # [docs]
     @staticmethod
     def concordance_correlation_coefficient(y_true, y_pred, epsilon=1e-8):
-        r"""
+        """
         **Concordance Correlation Coefficient (CCC)**
 
         Measures agreement between predicted and ground truth masks.
@@ -357,3 +357,4 @@ class PerformanceMetrics:
         rho = cov / (np.sqrt(v1 * v2) + epsilon)
         ccc = rho * (2 * np.sqrt(v1 * v2)) / (v1 + v2 + (m1 - m2)**2 + epsilon)
         return np.clip(ccc, -1, 1), rho
+
