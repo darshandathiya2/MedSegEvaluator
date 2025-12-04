@@ -1,7 +1,7 @@
 Medical Segmentation Metrics
 ============================
 
-.. automodule:: medsegevaluator.MedicalSegmentationMetrics
+.. automodule:: medsegevaluator.med_seg_metrics
    :members:
    :undoc-members:
    :show-inheritance:
