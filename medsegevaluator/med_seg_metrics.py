@@ -5,7 +5,7 @@ __all__ = ["MedicalSegmentationMetrics"]
 
 
 class MedicalSegmentationMetrics:
-    """
+    r"""
     Minimal medical image segmentation evaluation class.
 
     This version includes only the Dice score for testing and documentation.
@@ -13,12 +13,12 @@ class MedicalSegmentationMetrics:
 
     @staticmethod
     def dice(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-        """
+        r"""
         Compute Dice score between two binary segmentation masks.
+        .. math::
+          \text{Dice Coefficient} = \frac{2 \cdot |A \cap B|}{|A| + |B|}
 
-        \text{Dice Coefficient} = \frac{2 \cdot |A \cap B|}{|A| + |B|}
-
-        where ``A`` denotes the predicted set of pixels and ``B`` denotes the set of ground truth pixels.
+        where :math:`A` denotes the predicted set of pixels and :math:`B` denotes the set of ground truth pixels.
 
         Parameters
         ----------
@@ -60,5 +60,6 @@ class MedicalSegmentationMetrics:
         intersection = np.sum(y_true_f * y_pred_f)
         union = np.sum(y_true_f) + np.sum(y_pred_f) - intersection
         return intersection / (union + 1e-8)
+
 
 
