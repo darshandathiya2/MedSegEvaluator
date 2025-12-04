@@ -9,16 +9,19 @@ Class Reference
 ---------------
 
 .. autoclass:: medsegevaluator.PerformanceMetrics
-   :members:
+   :members: dice_score, jaccard_index, hausdorff_distance  # List specific methods only
    :undoc-members:
    :show-inheritance:
-   :special-members: __init__
+
+Individual Method Details
+-------------------------
 
 Dice Coefficient
------------------
+~~~~~~~~~~~~~~~~
 
-.. automethod:: dice_score
-
+.. automethod:: medsegevaluator.PerformanceMetrics.dice_score
+   :noindex:
+   
    Compute the Dice coefficient (F1 score) for binary segmentation.
    
    .. math::
