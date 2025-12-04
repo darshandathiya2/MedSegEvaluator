@@ -9,7 +9,7 @@ from scipy.spatial.distance import directed_hausdorff
 from typing import Dict, List, Tuple, Union, Optional
 import warnings
 
-class PerformanceMetrics:
+class MedicalSegmentationMetrics:
     """
     Comprehensive medical image segmentation evaluation class.
     
@@ -568,5 +568,6 @@ class PerformanceMetrics:
             results.append(MedicalSegmentationMetrics.evaluate_all_metrics(gt, pred))
         
         return results
+
 
 
