@@ -8,8 +8,8 @@ This class implements both region-based and surface-based metrics commonly used 
 Class Reference
 ---------------
 
-.. autoclass:: medsegevaluator.PerformanceMetrics
-   :members: dice_score, jaccard_index, hausdorff_distance  # List specific methods only
+.. automodule:: medsegevaluator.PerformanceMetrics
+   :members:
    :undoc-members:
    :show-inheritance:
 
