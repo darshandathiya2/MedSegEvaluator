@@ -1,15 +1,6 @@
 PerformanceMetrics
-=================
+==================
 
-`PerformanceMetrics` is a comprehensive evaluation class for medical image segmentation. 
-It provides a variety of metrics for quantitative assessment of segmentation performance.
+.. currentmodule:: medsegevaluator.PerformanceMetrics
 
-
-Performance Metric Class (:mod:`medsegevaluator.PerformanceMetrics`)
---------------------------------------------------------------------
-
-.. automodule:: medsegevaluator.PerformanceMetrics
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+The ``PerformanceMetrics`` class provides comprehensive evaluation metrics for medical image segmentation. All methods are **static methods**, meaning they can be called directly without creating an instance of the class.
