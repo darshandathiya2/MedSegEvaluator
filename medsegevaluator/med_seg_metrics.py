@@ -16,6 +16,10 @@ class MedicalSegmentationMetrics:
         """
         Compute Dice score between two binary segmentation masks.
 
+        \text{Dice Coefficient} = \frac{2 \cdot |A \cap B|}{|A| + |B|}
+
+        where ``A`` denotes the predicted set of pixels and ``B`` denotes the set of ground truth pixels.
+
         Parameters
         ----------
         y_true : np.ndarray
@@ -56,4 +60,5 @@ class MedicalSegmentationMetrics:
         intersection = np.sum(y_true_f * y_pred_f)
         union = np.sum(y_true_f) + np.sum(y_pred_f) - intersection
         return intersection / (union + 1e-8)
+
 
