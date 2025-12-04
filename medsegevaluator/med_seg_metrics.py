@@ -1,22 +1,39 @@
-# MedicalSegmentationMetrics.py
+"""
+MedicalSegmentationMetrics
+==========================
 
+Minimal segmentation metrics module containing only the Dice score.
+"""
+
+from __future__ import annotations
 import numpy as np
+
+__all__ = ["MedicalSegmentationMetrics"]
+
 
 class MedicalSegmentationMetrics:
     """
-    A simple segmentation metrics class for demonstration.
+    Minimal medical image segmentation evaluation class.
 
-    **Methods:**
-        - dice(y_true, y_pred): Computes the Dice coefficient.
+    This version includes only the Dice score for testing and documentation.
     """
 
-    def dice(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    @staticmethod
+    def dice(y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """
-        Compute the Dice score between two binary masks.
+        Compute Dice score between two binary segmentation masks.
 
-        :param y_true: Ground truth binary mask.
-        :param y_pred: Predicted binary mask.
-        :return: Dice coefficient (0 to 1).
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth binary mask.
+        y_pred : np.ndarray
+            Predicted binary mask.
+
+        Returns
+        -------
+        float
+            Dice coefficient ranging from 0 (no overlap) to 1 (perfect overlap).
         """
         y_true_f = y_true.flatten()
         y_pred_f = y_pred.flatten()
