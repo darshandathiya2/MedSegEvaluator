@@ -7,7 +7,7 @@ __all__ = ["MedicalSegmentationMetrics"]
 class MedicalSegmentationMetrics:
 
     @staticmethod
-    def dice(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def dice(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute Dice score between two binary segmentation masks.
         
@@ -34,7 +34,7 @@ class MedicalSegmentationMetrics:
 
 
     @staticmethod
-    def iou(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def iou(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute Intersection over Union (IoU) between two binary segmentation masks.
         
@@ -61,7 +61,7 @@ class MedicalSegmentationMetrics:
         return intersection / (union + 1e-6)
 
     @staticmethod
-    def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def accuracy(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute classification accuracy between two binary segmentation masks.
     
@@ -92,7 +92,7 @@ class MedicalSegmentationMetrics:
         return (tp + tn) / (total + 1e-6)
 
     @staticmethod
-    def precision(y_true, y_pred):
+    def precision(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute the Precision score for binary segmentation masks.
     
@@ -120,7 +120,7 @@ class MedicalSegmentationMetrics:
 
     
     @staticmethod
-    def recall(y_true, y_pred):
+    def recall(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute the Recall score for binary segmentation masks.
     
@@ -175,6 +175,7 @@ class MedicalSegmentationMetrics:
         fp = np.logical_and(~y_true, y_pred).sum()
     
         return tn / (tn + fp + 1e-6)
+
 
 
 
