@@ -71,15 +71,9 @@ class MedicalSegmentationMetrics:
         .. math::
             \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
     
-        where:
-        
-        - :math:`TP` = true positives  
-        - :math:`TN` = true negatives  
-        - :math:`FP` = false positives  
-        - :math:`FN` = false negatives  
+        where :math:`TP`, :math:`TN`, :math:`FP`, and :math:`FN` are  true positives, true negatives, false positives, and false negatives respectively. 
     
-        Although accuracy is intuitive, it may be misleading in highly imbalanced
-        medical images where the background dominates.
+        Although accuracy is intuitive, it may be misleading in highly imbalanced medical images where the background dominates.
     
          Args:
             y_true : np.ndarray
@@ -128,6 +122,7 @@ class MedicalSegmentationMetrics:
 
 
     
+
 
 
 
