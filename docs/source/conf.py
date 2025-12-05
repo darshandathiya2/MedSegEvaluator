@@ -31,10 +31,16 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
+    "sphinx.ext.napoleon",
 ]
 
 autosummary_generate = True
 
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = False
+napoleon_use_param = True
+napoleon_use_rtype = True
 # ------------------------------------------------------------------------------
 # Correct autodoc options (FINAL)
 # ------------------------------------------------------------------------------
