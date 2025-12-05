@@ -28,10 +28,10 @@ class MedicalSegmentationMetrics:
         float
             Dice coefficient ranging from 0 (no overlap) to 1 (perfect overlap).
         """
-        y_true_f = y_true.flatten()
-        y_pred_f = y_pred.flatten()
-        intersection = np.sum(y_true_f * y_pred_f)
-        return (2.0 * intersection) / (np.sum(y_true_f) + np.sum(y_pred_f) + 1e-8)
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+        intersection = np.logical_and(y_true, y_pred).sum()
+        return (2. * intersection) / (y_true.sum() + y_pred.sum() + 1e-6)
 
 
     @staticmethod
@@ -56,11 +56,11 @@ class MedicalSegmentationMetrics:
         float
             IoU score ranging from 0 (no overlap) to 1 (perfect overlap).
         """
-        y_true_f = y_true.flatten()
-        y_pred_f = y_pred.flatten()
-        intersection = np.sum(y_true_f * y_pred_f)
-        union = np.sum(y_true_f) + np.sum(y_pred_f) - intersection
-        return intersection / (union + 1e-8)
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+        intersection = np.logical_and(y_true, y_pred).sum()
+        union = np.logical_or(y_true, y_pred).sum()
+        return intersection / (union + 1e-6)
 
     @staticmethod
     def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
@@ -103,6 +103,7 @@ class MedicalSegmentationMetrics:
         return (tp + tn) / (total + 1e-6)
 
     
+
 
 
 
