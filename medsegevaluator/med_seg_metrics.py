@@ -99,6 +99,33 @@ class MedicalSegmentationMetrics:
         total = y_true.size
         return (tp + tn) / (total + 1e-6)
 
+    def precision(y_true, y_pred):
+        """
+        Compute the Precision score for binary segmentation masks.
+    
+        Precision measures the proportion of predicted positive pixels that are
+        correctly identified.
+    
+        .. math::
+            \text{Precision} = \frac{TP}{TP + FP}
+    
+        Args:
+            y_true (np.ndarray): Ground-truth binary mask.
+            y_pred (np.ndarray): Predicted binary segmentation mask.
+    
+        Returns:
+            float: Precision score in the range [0, 1].
+        """
+
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        tp = np.logical_and(y_true, y_pred).sum()
+        fp = np.logical_and(~y_true, y_pred).sum()
+    
+        return tp / (tp + fp + 1e-6)
+
+
     
 
 
