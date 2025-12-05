@@ -121,7 +121,7 @@ class MedicalSegmentationMetrics:
     
     @staticmethod
     def recall(y_true, y_pred):
-        """
+        r"""
         Compute the Recall score for binary segmentation masks.
     
         Recall measures the proportion of ground-truth positive pixels that are
@@ -148,6 +148,7 @@ class MedicalSegmentationMetrics:
         return tp / (tp + fn + 1e-6)
 
     
+
 
 
 
