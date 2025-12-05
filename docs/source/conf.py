@@ -9,7 +9,7 @@ import sys
 #     docs/source/
 # ------------------------------------------------------------------------------
 sys.path.insert(0, os.path.abspath('../..'))    # Adds project root
-sys.path.insert(0, os.path.abspath('../../medsegevaluator'))
+#sys.path.insert(0, os.path.abspath('../../medsegevaluator'))
 
 # -- Project information -----------------------------------------------------
 
@@ -41,6 +41,8 @@ napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_use_param = True
 napoleon_use_rtype = True
+napoleon_use_ivar = True
+
 # ------------------------------------------------------------------------------
 # Correct autodoc options (FINAL)
 # ------------------------------------------------------------------------------
