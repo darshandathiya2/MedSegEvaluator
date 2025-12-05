@@ -16,12 +16,11 @@ class MedicalSegmentationMetrics:
 
         where :math:`A` denotes the predicted set of pixels and :math:`B` denotes the set of ground truth pixels.
 
-        Parameters
-        ----------
-        y_true : np.ndarray
-            Ground-truth binary mask.
-        y_pred : np.ndarray
-            Predicted binary mask.
+        Args:
+            y_true : np.ndarray
+                Ground-truth binary mask.
+            y_pred : np.ndarray
+                Predicted binary mask.
 
         Returns
         -------
@@ -44,12 +43,11 @@ class MedicalSegmentationMetrics:
    
         where :math:`A` denotes the predicted set of pixels and :math:`B` denotes the set of ground truth pixels.
 
-        Parameters
-        ----------
-        y_true : np.ndarray
-            Ground-truth binary mask.
-        y_pred : np.ndarray
-            Predicted binary mask.
+        Args:
+            y_true : np.ndarray
+                Ground-truth binary mask.
+            y_pred : np.ndarray
+                Predicted binary mask.
 
         Returns
         -------
@@ -83,12 +81,11 @@ class MedicalSegmentationMetrics:
         Although accuracy is intuitive, it may be misleading in highly imbalanced
         medical images where the background dominates.
     
-        Parameters
-        ----------
-        y_true : np.ndarray
-            Ground-truth binary mask.
-        y_pred : np.ndarray
-            Predicted binary mask.
+         Args:
+            y_true : np.ndarray
+                Ground-truth binary mask.
+            y_pred : np.ndarray
+                Predicted binary mask.
     
         Returns
         -------
@@ -103,6 +100,7 @@ class MedicalSegmentationMetrics:
         return (tp + tn) / (total + 1e-6)
 
     
+
 
 
 
