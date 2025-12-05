@@ -76,11 +76,9 @@ class MedicalSegmentationMetrics:
         Although accuracy is intuitive, it may be misleading in highly imbalanced medical images where the background dominates.
         
         Args:
-             y_true : np.ndarray
-                    Ground-truth binary mask.
-            y_pred : np.ndarray
-                    Predicted binary mask.
-    
+            y_true (np.ndarray): Ground-truth binary mask.
+            y_pred (np.ndarray): Predicted binary segmentation mask.
+            
         Returns
         -------
         float
@@ -122,6 +120,7 @@ class MedicalSegmentationMetrics:
 
 
     
+
 
 
 
