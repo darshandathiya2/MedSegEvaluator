@@ -99,8 +99,9 @@ class MedicalSegmentationMetrics:
         total = y_true.size
         return (tp + tn) / (total + 1e-6)
 
+    @staticmethod
     def precision(y_true, y_pred):
-        """
+        r"""
         Compute the Precision score for binary segmentation masks.
     
         Precision measures the proportion of predicted positive pixels that are
@@ -127,6 +128,7 @@ class MedicalSegmentationMetrics:
 
 
     
+
 
 
 
