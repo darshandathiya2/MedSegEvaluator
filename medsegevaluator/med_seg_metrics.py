@@ -178,46 +178,9 @@ class MedicalSegmentationMetrics:
     
         return tn / (tn + fp + 1e-6)
 
-    @staticmethod
-    def hausdorff_distance(y_true: np.ndarray, y_pred: np.ndarray):
-        r"""Compute the symmetric Hausdorff Distance (HD) between two binary masks.
+
     
-        The Hausdorff Distance measures the maximum surface-to-surface distance
-        between the predicted and ground-truth segmentation boundaries. It is a
-        boundary-level metric commonly used for evaluating segmentation quality in
-        medical imaging.
-    
-        Mathematically, the symmetric Hausdorff Distance is defined as:
-    
-        .. math::
-            HD(A, B) = \max \{ d(A, B), d(B, A) \}
-    
-        where :math:`d(A, B)` is the directed Hausdorff distance from set :math:`A`
-        to set :math:`B`.
-    
-        Args:
-            y_true (np.ndarray): Ground-truth binary mask.
-            y_pred (np.ndarray): Predicted binary mask.
-    
-        Returns:
-            float: Symmetric Hausdorff Distance. If either mask contains no foreground
-            pixels, the function returns ``np.inf``.
-        """
-        y_true = y_true.astype(bool)
-        y_pred = y_pred.astype(bool)
-    
-        y_true_points = np.argwhere(y_true)
-        y_pred_points = np.argwhere(y_pred)
-    
-        # If either mask is empty, HD is undefined → return infinity
-        if len(y_true_points) == 0 or len(y_pred_points) == 0:
-            return np.inf
-    
-        d1 = directed_hausdorff(y_true_points, y_pred_points)[0]
-        d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
-    
-        return max(d1, d2)
-    
+
 
 
 
