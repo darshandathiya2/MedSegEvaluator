@@ -155,7 +155,7 @@ class MedicalSegmentationMetrics:
         correctly. It is defined as:
     
         .. math::
-            \\text{Specificity} = \\frac{TN}{TN + FP}
+             \text{Specificity} = \frac{TN}{TN + FP}
     
         where :math:`TN` (true negatives) are background pixels correctly predicted and :math:`FP` (false positives) are background pixels 
         incorrectly predicted as foreground.
@@ -175,6 +175,7 @@ class MedicalSegmentationMetrics:
         fp = np.logical_and(~y_true, y_pred).sum()
     
         return tn / (tn + fp + 1e-6)
+
 
 
 
