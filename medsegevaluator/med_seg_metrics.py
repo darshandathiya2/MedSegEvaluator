@@ -200,6 +200,9 @@ class MedicalSegmentationMetrics:
         Returns:
             float: Symmetric Hausdorff Distance. If either mask contains no foreground
             pixels, the function returns ``np.inf``.
+
+        Notes:
+            This implementation uses ``scipy.spatial.distance.directed_hausdorff``.    
         """
         y_true = y_true.astype(bool)
         y_pred = y_pred.astype(bool)
@@ -215,8 +218,40 @@ class MedicalSegmentationMetrics:
         d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
     
         return max(d1, d2)
+
+    def hd95(y_true, y_pred):
+        r"""
+        Compute the 95th percentile Hausdorff Distance (HD95) between two binary masks.
     
-        
+        This metric measures the spatial distance between the boundary points of
+        predicted and ground-truth segmentations. HD95 is more stable than the full
+        Hausdorff Distance because it ignores extreme outliers.
+    
+        Args:
+            y_true (np.ndarray): Ground truth binary mask. 
+            y_pred (np.ndarray): Predicted binary mask. 
+            
+        Returns:
+            float: The 95th percentile Hausdorff distance. Returns ``np.inf`` if one of the masks is empty.
+    
+        Notes:
+            This implementation uses ``scipy.spatial.distance.directed_hausdorff``.
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        y_true_points = np.argwhere(y_true)
+        y_pred_points = np.argwhere(y_pred)
+    
+        if len(y_true_points) == 0 or len(y_pred_points) == 0:
+            return np.inf
+    
+        d1 = directed_hausdorff(y_true_points, y_pred_points)[0]
+        d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
+    
+        return np.percentile([d1, d2], 95)
+
+
 
 
 
