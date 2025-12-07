@@ -585,7 +585,8 @@ class MedicalSegmentationMetrics:
         Returns
         -------
         tuple
-            A tuple ``(ccc, rho)`` where:
+            A tuple ``(ccc, rho)`` 
+            where:
             - ``ccc`` : float  
                 Concordance Correlation Coefficient.
             - ``rho`` : float  
@@ -615,6 +616,7 @@ class MedicalSegmentationMetrics:
         )
     
         return np.clip(ccc, -1.0, 1.0), rho
+
 
 
 
