@@ -322,6 +322,103 @@ class MedicalSegmentationMetrics:
     
         return (dist1.mean() + dist2.mean()) / 2.0
 
+    @staticmethod
+    def nsd(y_true, y_pred, tolerance_mm=1.0, voxel_spacing=None):
+        r"""
+        Compute the **Normalized Surface Dice (NSD)** between two binary masks.
+    
+        NSD measures how many surface points of both segmentations fall within a
+        specified boundary tolerance. It is a widely used metric for clinical
+        segmentation challenges because it is robust to small boundary variations.
+    
+        The metric is defined as:
+    
+        .. math::
+    
+            NSD = \frac{
+                |\{x \in S_{GT} : d(x, S_{P}) \le \tau \}| +
+                |\{y \in S_{P} : d(y, S_{GT}) \le \tau \}|
+            }{
+                |S_{GT}| + |S_{P}|
+            }
+    
+        where :math:`S_{GT}` is a ground-truth surface, :math:`S_{P}` is a predicted surface, :math:`d(\cdot)` is a Euclidean distance, and :math:`\tau` is a tolerance in millimeters (e.g., 1 mm)
+    
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth binary mask. Non-zero values are treated as foreground.
+    
+        y_pred : np.ndarray
+            Predicted binary mask. Non-zero values are treated as foreground.
+    
+        tolerance_mm : float, optional
+            Maximum distance in millimeters for a predicted/ground-truth surface point
+            to be considered correctly matched. Default is ``1.0``.
+    
+        voxel_spacing : float, list, or tuple, optional
+            Physical size of voxels in each dimension.
+            Examples:
+            - ``1.0`` → isotropic 1 mm voxels  
+            - ``[0.7, 0.7, 1.0]`` → anisotropic spacing  
+            If ``None``, isotropic spacing of 1.0 is used.
+    
+        Returns
+        -------
+        float
+            Normalized Surface Dice (NSD). Range: ``0.0`` to ``1.0``.
+    
+        Notes
+        -----
+        - If both masks are empty → returns ``1.0``.
+        - If only one mask is empty → returns ``0.0``.
+        - Uses:
+          - ``scipy.ndimage.distance_transform_edt`` for point-to-surface distances  
+          - ``scipy.ndimage.binary_erosion`` to extract boundary voxels  
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        # handle trivial cases
+        if np.all(~y_true) and np.all(~y_pred):
+            return 1.0
+        if np.all(~y_true) or np.all(~y_pred):
+            return 0.0
+    
+        # handle voxel spacing
+        if voxel_spacing is None:
+            voxel_spacing = [1.0] * y_true.ndim
+        elif np.isscalar(voxel_spacing):
+            voxel_spacing = [float(voxel_spacing)] * y_true.ndim
+        else:
+            voxel_spacing = [float(v) if v is not None else 1.0 for v in voxel_spacing]
+    
+        # distance transforms
+        dt_true = distance_transform_edt(~y_true, sampling=tuple(voxel_spacing))
+        dt_pred = distance_transform_edt(~y_pred, sampling=tuple(voxel_spacing))
+    
+        # extract surfaces
+        surf_true = np.logical_and(y_true, ~binary_erosion(y_true))
+        surf_pred = np.logical_and(y_pred, ~binary_erosion(y_pred))
+    
+        # distances
+        d_true_to_pred = dt_pred[surf_true]
+        d_pred_to_true = dt_true[surf_pred]
+    
+        # handle no-surface cases
+        if len(d_true_to_pred) == 0 or len(d_pred_to_true) == 0:
+            return 0.0
+    
+        # count points within tolerance
+        within_true = np.sum(d_true_to_pred <= tolerance_mm)
+        within_pred = np.sum(d_pred_to_true <= tolerance_mm)
+    
+        denom = len(d_true_to_pred) + len(d_pred_to_true)
+    
+        return (within_true + within_pred) / (denom + 1e-6)
+
+
+
 
 
 
