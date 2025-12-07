@@ -463,7 +463,7 @@ class MedicalSegmentationMetrics:
 
     
     @staticmethod
-    def relative_volume_difference(y_true, y_pred):
+    def relative_volume_difference(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute the **Relative Volume Difference (RVD)** between two binary segmentation masks.
     
@@ -506,6 +506,48 @@ class MedicalSegmentationMetrics:
     
         return (v_pred - v_true) / (v_true + 1e-6)
 
+    @staticmethod
+    def total_deviation_index(y_true: np.ndarray, y_pred: np.ndarray, p=0.95):
+        r"""
+        Compute the **Total Deviation Index (TDI\_p)** between predicted and ground-truth masks.
+    
+        TDI measures the *p-th percentile* of absolute voxel-wise deviations between
+        the predicted mask and the ground truth. It provides insight into the overall
+        error distribution rather than only extreme deviations.
+    
+        It is defined as:
+    
+        .. math::
+    
+            TDI_p = \operatorname{percentile}_p(|P - GT|)
+    
+        where :math:`GT` is aground-truth mask, :math:`P` is a  predicted mask, :math:`|P - GT|` — absolute voxel-wise deviation, and :math:`p` is a percentile level, e.g., 0.95 for TDI\ :sub:`95`
+
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth mask.
+    
+        y_pred : np.ndarray
+            Predicted mask of the same shape as ``y_true``.
+            Can be binary or soft probabilities.
+    
+        p : float, optional
+            Percentile value in the range [0, 1].
+            Example: ``0.95`` computes the 95th percentile (TDI95).
+    
+        Returns
+        -------
+        float
+            The Total Deviation Index at the specified percentile.
+    
+        Notes
+        -----
+        - Suitable for both probability maps and binary masks.
+        - Captures global deviation distribution, unlike max-based metrics.
+        """
+        e = np.abs(y_pred.flatten() - y_true.flatten())
+        return np.percentile(e, p * 100)
 
 
 
