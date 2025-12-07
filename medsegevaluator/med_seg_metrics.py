@@ -220,7 +220,7 @@ class MedicalSegmentationMetrics:
         return max(d1, d2)
 
     @staticmethod
-    def hd95(y_true, y_pred):
+    def hd95(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute the 95th percentile Hausdorff Distance (HD95) between two binary masks.
     
@@ -259,6 +259,7 @@ class MedicalSegmentationMetrics:
         d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
     
         return np.percentile([d1, d2], 95)
+
 
 
 
