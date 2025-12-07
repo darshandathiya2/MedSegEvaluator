@@ -276,7 +276,7 @@ class MedicalSegmentationMetrics:
                 \frac{1}{|S_{P}|} \sum_{y \in S_{P}} d(y, S_{GT})
             \right)
     
-        where :math:`S_{GT}` is the ground-truth surface, :math:`S_{P}` is the predicted surface,:math:`d(a, B)` is the minimum Euclidean distance between point, and :math:`a`
+        where :math:`S_{GT}` is the ground-truth surface, :math:`S_{P}` is the predicted surface, :math:`d(a, B)` is the minimum Euclidean distance between point, and :math:`a`
               and the set of points :math:`B`.
     
         Parameters
@@ -321,6 +321,7 @@ class MedicalSegmentationMetrics:
         dist2 = dt_true[s_pred]   # Pred surface → GT surface
     
         return (dist1.mean() + dist2.mean()) / 2.0
+
 
 
 
