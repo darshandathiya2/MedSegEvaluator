@@ -188,9 +188,9 @@ class MedicalSegmentationMetrics:
         Mathematically, the symmetric Hausdorff Distance is defined as:
     
         .. math::
-            HD(A, B) = \max \{ d(A, B), d(B, A) \}
+            HD(A, B) = \max \{ max_{a \in A} d(a, B), max_{b \in B} d(b, A) \}
     
-        where :math:`d(A, B)` is the directed Hausdorff distance from set :math:`A`
+        where :math:`d(a, B) = min_{b \in B} d(a,b)` is the directed Hausdorff distance from set :math:`A`
         to set :math:`B`.
     
         Args:
@@ -250,6 +250,7 @@ class MedicalSegmentationMetrics:
         d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
     
         return np.percentile([d1, d2], 95)
+
 
 
 
