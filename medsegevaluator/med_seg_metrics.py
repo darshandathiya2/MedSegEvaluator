@@ -549,6 +549,73 @@ class MedicalSegmentationMetrics:
         e = np.abs(y_pred.flatten() - y_true.flatten())
         return np.percentile(e, p * 100)
 
+    @staticmethod
+    def concordance_correlation_coefficient(y_true: np.ndarray, y_pred: np.ndarray, epsilon=1e-8):
+        r"""
+        Compute the **Concordance Correlation Coefficient (CCC)** and **Pearson correlation (ρ)**  
+        between predicted and ground-truth values.
+    
+        The CCC evaluates both **precision** (correlation) and **accuracy** (closeness to the
+        identity line), making it a stronger agreement measure than Pearson correlation alone.
+    
+        The CCC is defined as:
+    
+        .. math::
+    
+            \rho_c = \rho \cdot
+            \frac{2 \sigma_{xy}}
+                 {\sigma_x^2 + \sigma_y^2 + (\mu_x - \mu_y)^2}
+    
+        where :math:`\rho` is the Pearson correlation coefficient, :math:`\sigma_x^2`, :math:`\sigma_y^2` are variances, :math:`\mu_x`, :math:`\mu_y` are means,  
+        and :math:`\sigma_{xy}` is the covariance.  
+    
+        CCC ranges from **-1 to 1**, where **1** is perfect concordance, **0** is no concordance, and **-1** → perfect discordance  
+    
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth values.
+    
+        y_pred : np.ndarray
+            Predicted values of the same shape as ``y_true``.
+    
+        epsilon : float, optional
+            Small constant added to avoid division by zero.
+    
+        Returns
+        -------
+        tuple
+            A tuple ``(ccc, rho)`` where:
+            - ``ccc`` : float  
+                Concordance Correlation Coefficient.
+            - ``rho`` : float  
+                Pearson correlation coefficient.
+    
+        Notes
+        -----
+        - CCC is widely used in regression-based medical imaging tasks  
+          (e.g., radiomics, volume estimation, continuous score prediction).
+        - Provides a more comprehensive agreement measure than correlation alone.
+        """
+        y_true = np.asarray(y_true).astype(np.float32).flatten()
+        y_pred = np.asarray(y_pred).astype(np.float32).flatten()
+    
+        mean_true = np.mean(y_true)
+        mean_pred = np.mean(y_pred)
+        var_true = np.var(y_true)
+        var_pred = np.var(y_pred)
+        cov = np.mean((y_true - mean_true) * (y_pred - mean_pred))
+    
+        # Pearson correlation coefficient
+        rho = cov / (np.sqrt(var_true * var_pred) + epsilon)
+    
+        # Concordance correlation coefficient (CCC)
+        ccc = rho * (2 * np.sqrt(var_true * var_pred)) / (
+            var_true + var_pred + (mean_true - mean_pred) ** 2 + epsilon
+        )
+    
+        return np.clip(ccc, -1.0, 1.0), rho
+
 
 
 
