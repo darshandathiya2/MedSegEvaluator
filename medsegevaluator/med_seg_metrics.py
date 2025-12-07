@@ -261,6 +261,67 @@ class MedicalSegmentationMetrics:
         return np.percentile([d1, d2], 95)
 
 
+    def average_surface_distance(y_true: np.ndarray, y_pred: np.ndarray, voxel_spacing=None):
+        r"""
+        Compute the Average Surface Distance (ASD) between two binary segmentation masks.
+    
+        ASD measures the mean symmetric distance between the surfaces (boundaries)
+        of two masks. It is computed by averaging the distances from the ground-truth
+        surface to the predicted surface **and** vice versa.
+    
+        .. math::
+    
+            ASD = \frac{1}{2} \left(
+                \frac{1}{|S_{GT}|} \sum_{x \in S_{GT}} d(x, S_{P}) +
+                \frac{1}{|S_{P}|} \sum_{y \in S_{P}} d(y, S_{GT})
+            \right)
+    
+        where :math:`S_{GT}` is the ground-truth surface, :math:`S_{P}` is the predicted surface,:math:`d(a, B)` is the minimum Euclidean distance between point, and :math:`a`
+              and the set of points :math:`B`.
+    
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth binary mask. Non-zero values are treated as foreground.
+        y_pred : np.ndarray
+            Predicted binary mask. Non-zero values are treated as foreground.
+        voxel_spacing : list or tuple of float, optional
+            Physical spacing of each voxel dimension (e.g., [x_spacing, y_spacing, z_spacing]).
+            Default is isotropic spacing of 1.0.
+    
+        Returns
+        -------
+        float
+            The average surface distance (ASD). Lower values indicate better boundary alignment.
+    
+        Notes
+        -----
+        This function uses:
+        - ``scipy.ndimage.distance_transform_edt`` for distance computation
+        - ``scipy.ndimage.binary_erosion`` to extract surface voxels
+    
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        # handle voxel spacing
+        if voxel_spacing is None:
+            voxel_spacing = [1.0] * y_true.ndim
+    
+        # distance transforms of complements
+        dt_true = distance_transform_edt(~y_true, sampling=voxel_spacing)
+        dt_pred = distance_transform_edt(~y_pred, sampling=voxel_spacing)
+    
+        # extract surfaces: boundary = foreground AND not eroded foreground
+        s_true = np.logical_and(y_true, ~binary_erosion(y_true))
+        s_pred = np.logical_and(y_pred, ~binary_erosion(y_pred))
+    
+        # surface distances in each direction
+        dist1 = dt_pred[s_true]   # GT surface → Pred surface
+        dist2 = dt_true[s_pred]   # Pred surface → GT surface
+    
+        return (dist1.mean() + dist2.mean()) / 2.0
+
 
 
 
