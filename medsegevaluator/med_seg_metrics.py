@@ -227,6 +227,14 @@ class MedicalSegmentationMetrics:
         This metric measures the spatial distance between the boundary points of
         predicted and ground-truth segmentations. HD95 is more stable than the full
         Hausdorff Distance because it ignores extreme outliers.
+
+        Mathematically, the HD95 is defined as:
+    
+        .. math::
+            HD_{95}(A, B) = \max \{  d_{95}(A, B), d_{95}(B, A) \}
+    
+        where :math:`d_{95}(A, B) = X95_{a \in A} \{ min_{b \in B} d(a,b) \}` is the directed Hausdorff distance from set :math:`A`
+        to set :math:`B`.
     
         Args:
             y_true (np.ndarray): Ground truth binary mask. 
@@ -251,6 +259,7 @@ class MedicalSegmentationMetrics:
         d2 = directed_hausdorff(y_pred_points, y_true_points)[0]
     
         return np.percentile([d1, d2], 95)
+
 
 
 
