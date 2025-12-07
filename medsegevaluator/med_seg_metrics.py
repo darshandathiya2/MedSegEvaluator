@@ -323,7 +323,7 @@ class MedicalSegmentationMetrics:
         return (dist1.mean() + dist2.mean()) / 2.0
 
     @staticmethod
-    def nsd(y_true, y_pred, tolerance_mm=1.0, voxel_spacing=None):
+    def nsd(y_true: np.ndarray, y_pred: np.ndarray, tolerance_mm=1.0, voxel_spacing=None):
         r"""
         Compute the **Normalized Surface Dice (NSD)** between two binary masks.
     
@@ -416,6 +416,49 @@ class MedicalSegmentationMetrics:
         denom = len(d_true_to_pred) + len(d_pred_to_true)
     
         return (within_true + within_pred) / (denom + 1e-6)
+
+    def volumetric_similarity(y_true: np.ndarray, y_pred: np.ndarray):
+        r"""
+        Compute the **Volumetric Similarity (VS)** between two binary segmentation masks.
+    
+        Volumetric Similarity measures how close the predicted and ground-truth
+        volumes are, independent of their spatial alignment. It is particularly useful
+        in medical imaging scenarios where anatomical structures may have irregular
+        shapes but consistent volumes.
+    
+        VS is defined as:
+    
+        .. math::
+    
+            VS = 1 - \frac{|V_{P} - V_{GT}|}{V_{P} + V_{GT}}
+    
+        where :math:`V_{P}` is a predicted foreground volume and :math:`V_{GT}` is a ground-truth foreground volume  
+    
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth binary mask. Non-zero values are treated as foreground.
+    
+        y_pred : np.ndarray
+            Predicted binary mask. Non-zero values are treated as foreground.
+    
+        Returns
+        -------
+        float
+            Volumetric similarity between the two masks.
+    
+        Notes
+        -----
+        - VS ignores spatial position; it only evaluates volume agreement.
+        - Commonly used in medical segmentation challenges (e.g., liver, spleen, brain).
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        v_true = y_true.sum()
+        v_pred = y_pred.sum()
+    
+        return 1 - abs(v_pred - v_true) / (v_pred + v_true + 1e-6)
 
 
 
