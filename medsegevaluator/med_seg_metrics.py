@@ -260,7 +260,7 @@ class MedicalSegmentationMetrics:
     
         return np.percentile([d1, d2], 95)
 
-
+    @staticmethod
     def average_surface_distance(y_true: np.ndarray, y_pred: np.ndarray, voxel_spacing=None):
         r"""
         Compute the Average Surface Distance (ASD) between two binary segmentation masks.
@@ -321,6 +321,7 @@ class MedicalSegmentationMetrics:
         dist2 = dt_true[s_pred]   # Pred surface → GT surface
     
         return (dist1.mean() + dist2.mean()) / 2.0
+
 
 
 
