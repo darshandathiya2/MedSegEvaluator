@@ -416,7 +416,8 @@ class MedicalSegmentationMetrics:
         denom = len(d_true_to_pred) + len(d_pred_to_true)
     
         return (within_true + within_pred) / (denom + 1e-6)
-
+    
+    @staticmethod
     def volumetric_similarity(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
         Compute the **Volumetric Similarity (VS)** between two binary segmentation masks.
@@ -460,6 +461,50 @@ class MedicalSegmentationMetrics:
     
         return 1 - abs(v_pred - v_true) / (v_pred + v_true + 1e-6)
 
+    
+    @staticmethod
+    def relative_volume_difference(y_true, y_pred):
+        r"""
+        Compute the **Relative Volume Difference (RVD)** between two binary segmentation masks.
+    
+        RVD measures the proportional difference between the predicted and ground-truth
+        foreground volumes. A positive value indicates over-segmentation, while a
+        negative value indicates under-segmentation.
+    
+        It is defined as:
+    
+        .. math::
+    
+            RVD = \frac{V_{P} - V_{GT}}{V_{GT}}
+    
+        where :math:`V_{P}` is a predicted foreground volume  and :math:`V_{GT}` is a ground-truth foreground volume  
+    
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground-truth binary mask. Non-zero values are treated as foreground.
+    
+        y_pred : np.ndarray
+            Predicted binary mask. Non-zero values are treated as foreground.
+    
+        Returns
+        -------
+        float
+            Relative volume difference between prediction and ground truth.
+    
+        Notes
+        -----
+        - RVD is asymmetric: over-segmentation and under-segmentation produce
+          values of opposite sign.
+        - Widely used in medical image segmentation challenges for volumetric evaluation.
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+    
+        v_true = y_true.sum()
+        v_pred = y_pred.sum()
+    
+        return (v_pred - v_true) / (v_true + 1e-6)
 
 
 
