@@ -19,3 +19,8 @@ Example:
     from image_perturbation import apply_blur
 
     blur_image = apply_blur(image, ksize=5)
+
+.. automodule:: medsegevaluator.image_perturbation
+   :members:
+   :undoc-members:
+   :show-inheritance:
