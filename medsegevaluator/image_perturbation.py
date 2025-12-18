@@ -58,6 +58,9 @@ class ImagePerturbation:
 
     @staticmethod
     def apply_rotation(image, angle=90):
+        r"""
+        Applies rotation (must be 90, 180, or 270) to a normalized float32 image [0,1].
+        """
         if angle not in [90, 180, 270]:
             raise ValueError("Angle must be 90, 180, or 270 degrees.")
         return np.rot90(image, k=angle // 90)
