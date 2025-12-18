@@ -3,8 +3,6 @@ import numpy as np
 
 
 class ImagePerturbation:
-    def __init__(self):
-        pass
 
     @staticmethod
     def _normalize(image):
@@ -15,7 +13,7 @@ class ImagePerturbation:
 
     @staticmethod
     def add_noise(image, noise_type="gaussian", mean=0, var=0.001):
-        """
+        r"""
         Adds Gaussian or Salt-and-Pepper noise to a normalized float32 image [0,1].
         """
         image = ImagePerturbation._normalize(image)
@@ -43,7 +41,7 @@ class ImagePerturbation:
 
     @staticmethod
     def apply_brightness(image, factor=1.2):
-        """
+        r"""
         Adjust brightness of a normalized float32 image [0,1].
         """
         image = ImagePerturbation._normalize(image)
@@ -51,7 +49,7 @@ class ImagePerturbation:
 
     @staticmethod
     def apply_gaussian_blur(image, ksize=(5, 5), sigma=0):
-        """
+        r"""
         Applies Gaussian blur to a normalized float32 image [0,1].
         """
         image = ImagePerturbation._normalize(image)
@@ -66,7 +64,7 @@ class ImagePerturbation:
 
     @staticmethod
     def perturb_image(image, perturb_type):
-        """Apply a single perturbation to an image."""
+        r"""Apply a single perturbation to an image."""
         if perturb_type == "gaussian_noise":
             return ImagePerturbation.add_noise(image, "gaussian")
         elif perturb_type == "salt_pepper":
