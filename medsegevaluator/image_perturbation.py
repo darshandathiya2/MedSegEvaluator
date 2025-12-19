@@ -162,24 +162,136 @@ class ImagePerturbation:
     @staticmethod
     def apply_gaussian_blur(image, ksize=(5, 5), sigma=0):
         r"""
-        Applies Gaussian blur to a normalized float32 image [0,1].
+        Apply Gaussian smoothing to a normalized image.
+    
+        Let the normalized input image be denoted as
+        :math:`I \in [0,1]^{H \times W \times C}`.
+        Gaussian blurring is performed via convolution with a Gaussian kernel:
+    
+        .. math::
+    
+            I_{\text{blur}} = I * G_{\sigma}
+    
+        where :math:`*` denotes the convolution operator and
+        :math:`G_{\sigma}` is a 2D Gaussian kernel defined as:
+    
+        .. math::
+    
+            G_{\sigma}(x, y) = \frac{1}{2\pi\sigma^2}
+            \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right)
+    
+        The kernel size is specified by ``ksize``, and the standard deviation
+        :math:`\sigma` is either provided explicitly or inferred automatically
+        when ``sigma = 0``.
+    
+        After filtering, pixel intensities are clipped to ensure all values
+        remain within the valid range ``[0, 1]``.
+    
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        ksize : tuple of int, optional
+            Size of the Gaussian kernel. Default is ``(5, 5)``.
+        sigma : float, optional
+            Standard deviation of the Gaussian kernel. Default is ``0``.
+    
+        Returns
+        -------
+        numpy.ndarray
+            Gaussian-blurred image with values in the range ``[0, 1]``.
         """
         image = ImagePerturbation._normalize(image)
         blurred = cv2.GaussianBlur(image, ksize, sigma)
         return np.clip(blurred, 0, 1)
 
+
     @staticmethod
     def apply_rotation(image, angle=90):
         r"""
-        Applies rotation (must be 90, 180, or 270) to a normalized float32 image [0,1].
+        Apply discrete rotation to a normalized image.
+    
+        Let the normalized input image be denoted as
+        :math:`I \in [0,1]^{H \times W \times C}`.
+        The rotation operation is defined as a spatial transformation:
+    
+        .. math::
+    
+            I_{\text{rot}}(x, y) = I(R_{\theta}(x, y))
+    
+        where :math:`R_{\theta}` is a rotation operator corresponding to
+        an angle :math:`\theta \in \{90^\circ, 180^\circ, 270^\circ\}`.
+    
+        In practice, the rotation is implemented as a sequence of
+        90-degree counter-clockwise rotations:
+    
+        .. math::
+    
+            k = \frac{\theta}{90}
+    
+        where :math:`k` denotes the number of 90-degree rotations applied.
+    
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        angle : int, optional
+            Rotation angle in degrees. Must be one of ``90``, ``180``, or ``270``.
+    
+        Returns
+        -------
+        numpy.ndarray
+            Rotated image with values in the range ``[0, 1]``.
+    
+        Raises
+        ------
+        ValueError
+            If ``angle`` is not one of ``90``, ``180``, or ``270``.
         """
         if angle not in [90, 180, 270]:
             raise ValueError("Angle must be 90, 180, or 270 degrees.")
         return np.rot90(image, k=angle // 90)
 
+
     @staticmethod
     def perturb_image(image, perturb_type):
-        r"""Apply a single perturbation to an image."""
+        r"""
+        Apply a specified image perturbation.
+    
+        This function acts as a unified interface for applying a single
+        perturbation to an input image. Based on the provided
+        ``perturb_type``, it internally dispatches the image to the
+        corresponding perturbation function.
+    
+        Supported perturbations include intensity-based transformations
+        (Gaussian noise, salt-and-pepper noise, brightness adjustment),
+        spatial smoothing (Gaussian blur), and discrete spatial
+        transformations (rotations by 90°, 180°, or 270°).
+    
+        The input image is automatically normalized before the selected
+        perturbation is applied, ensuring consistent behavior across all
+        transformation types.
+    
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        perturb_type : str
+            Identifier specifying the perturbation to apply. Supported values are:
+            ``"gaussian_noise"``, ``"salt_pepper"``, ``"gaussian_blur"``,
+            ``"brightness"``, ``"rotation_90"``, ``"rotation_180"``,
+            and ``"rotation_270"``.
+    
+        Returns
+        -------
+        numpy.ndarray
+            Perturbed image with values constrained to the range ``[0, 1]``.
+    
+        Raises
+        ------
+        ValueError
+            If an unsupported ``perturb_type`` is provided.
+        """
         if perturb_type == "gaussian_noise":
             return ImagePerturbation.add_noise(image, "gaussian")
         elif perturb_type == "salt_pepper":
@@ -196,4 +308,3 @@ class ImagePerturbation:
             return ImagePerturbation.apply_rotation(image, 270)
         else:
             raise ValueError(f"Unknown perturbation: {perturb_type}")
-
