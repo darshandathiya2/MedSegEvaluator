@@ -6,6 +6,35 @@ class ImagePerturbation:
 
     @staticmethod
     def _normalize(image):
+        r"""
+            Normalize image intensities to the range ``[0, 1]``.
+        
+            Let the input image be denoted as :math:`I \in \mathbb{R}^{H \times W \times C}`,
+            where pixel intensities are typically represented in the range ``[0, 255]``.
+            The normalization is defined as:
+        
+            .. math::
+        
+                I_{\text{norm}} =
+                \begin{cases}
+                    \dfrac{I}{255}, & \text{if } \max(I) > 1 \\
+                    I, & \text{otherwise}
+                \end{cases}
+        
+            This conditional scaling ensures numerical stability and guarantees that
+            all subsequent perturbation operations are applied to images with values
+            bounded within ``[0, 1]``.
+        
+            Parameters
+            ----------
+            image : numpy.ndarray
+                Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        
+            Returns
+            -------
+            numpy.ndarray
+                Normalized image with floating-point values in the range ``[0, 1]``.
+        """
         image = image.astype(np.float32)
         if image.max() > 1.0:
             image /= 255.0
