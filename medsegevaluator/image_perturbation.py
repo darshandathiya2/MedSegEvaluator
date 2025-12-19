@@ -43,7 +43,62 @@ class ImagePerturbation:
     @staticmethod
     def add_noise(image, noise_type="gaussian", mean=0, var=0.001):
         r"""
-        Adds Gaussian or Salt-and-Pepper noise to a normalized float32 image [0,1].
+        Add noise to a normalized image.
+    
+        Let the normalized input image be denoted as
+        :math:`I \in [0,1]^{H \times W \times C}`.
+    
+        **Gaussian Noise**
+    
+        When ``noise_type="gaussian"``, additive Gaussian noise is applied:
+    
+        .. math::
+    
+            I_{\text{noisy}} = \text{clip}(I + N, 0, 1)
+    
+        where
+    
+        .. math::
+    
+            N \sim \mathcal{N}(\mu, \sigma^2), \quad \sigma = \sqrt{\text{var}}
+    
+        and :math:`\mu` is the mean of the noise distribution.
+    
+        **Salt-and-Pepper Noise**
+    
+        When ``noise_type="salt_pepper"``, a fraction of pixels is randomly
+        replaced with extreme intensity values:
+    
+        .. math::
+    
+            I_{\text{noisy}}(x) =
+            \begin{cases}
+                1, & \text{with probability } p_{\text{salt}} \\
+                0, & \text{with probability } p_{\text{pepper}} \\
+                I(x), & \text{otherwise}
+            \end{cases}
+    
+        where the total fraction of corrupted pixels is controlled by
+        ``amount``, and salt-to-pepper ratio is defined by ``s\_vs\_p``.
+    
+        All output values are clipped to ensure they remain within
+        the valid intensity range ``[0, 1]``.
+    
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        noise_type : str
+            Type of noise to apply: ``"gaussian"`` or ``"salt_pepper"``.
+        mean : float
+            Mean of the Gaussian noise distribution.
+        var : float
+            Variance of the Gaussian noise distribution.
+    
+        Returns
+        -------
+        numpy.ndarray
+            Noise-perturbed image with values in the range ``[0, 1]``.
         """
         image = ImagePerturbation._normalize(image)
 
