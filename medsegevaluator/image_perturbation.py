@@ -40,6 +40,7 @@ class ImagePerturbation:
             image /= 255.0
         return image
 
+    
     @staticmethod
     def add_noise(image, noise_type="gaussian", mean=0, var=0.001):
         r"""
@@ -126,7 +127,34 @@ class ImagePerturbation:
     @staticmethod
     def apply_brightness(image, factor=1.2):
         r"""
-        Adjust brightness of a normalized float32 image [0,1].
+        Adjust image brightness by intensity scaling.
+    
+        Let the normalized input image be denoted as
+        :math:`I \in [0,1]^{H \times W \times C}`.
+        Brightness adjustment is performed via linear scaling:
+    
+        .. math::
+    
+            I_{\text{bright}} = \text{clip}(\alpha \cdot I, 0, 1)
+    
+        where :math:`\alpha` is the brightness scaling factor.
+        Values of :math:`\alpha > 1` increase brightness, while
+        :math:`0 < \alpha < 1` decrease brightness.
+    
+        The clipping operation ensures that all pixel intensities
+        remain within the valid range ``[0, 1]``.
+    
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image of shape ``(H, W, C)`` or ``(H, W)``.
+        factor : float, optional
+            Brightness scaling factor :math:`\alpha`. Default is ``1.2``.
+    
+        Returns
+        -------
+        numpy.ndarray
+            Brightness-adjusted image with values in the range ``[0, 1]``.
         """
         image = ImagePerturbation._normalize(image)
         return np.clip(image * factor, 0, 1)
