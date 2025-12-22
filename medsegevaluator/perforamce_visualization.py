@@ -4,9 +4,6 @@ from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 import seaborn as sns
 from skimage import measure
-
-import numpy as np
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
 
@@ -23,8 +20,7 @@ class PerformanceVisualization:
         title="Bland–Altman Plot",
         xlabel="Mean of Methods",
         ylabel="Difference (GT - Pred)",
-        units=None
-    ):
+        units=None):
         r"""
         Generate an interactive Bland–Altman plot to assess agreement
         between two measurement methods.
@@ -168,6 +164,7 @@ class PerformanceVisualization:
         fig.show()
 
         return mean_diff, loa_upper, loa_lower
+
 
 
 
