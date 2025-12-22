@@ -61,7 +61,8 @@ autodoc_default_options = {
 # ------------------------------------------------------------------------------
 autodoc_mock_imports = [
     'tensorflow', 'keras', 'cv2', 'numpy', 'pandas',
-    'nibabel', 'pydicom', 'matplotlib', 'scipy', 'plotly'
+    'nibabel', 'pydicom', 'matplotlib', 'scipy', 'plotly',
+     'seaborn' , 'skimage' 
 ]
 
 # -- Options for HTML output -------------------------------------------------
