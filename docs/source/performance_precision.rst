@@ -1,7 +1,7 @@
 Model Performance Precision
 ============================
 
-.. automodule:: medsegevaluator.SegmentationPerformancePrecision
+.. automodule:: medsegevaluator.performance_precision
    :members:
    :undoc-members:
    :show-inheritance:
