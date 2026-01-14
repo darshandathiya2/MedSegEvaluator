@@ -62,7 +62,7 @@ autodoc_default_options = {
 autodoc_mock_imports = [
     'tensorflow', 'keras', 'cv2', 'numpy', 'pandas',
     'nibabel', 'pydicom', 'matplotlib', 'scipy', 'plotly',
-     'seaborn' , 'skimage' 
+     'seaborn' , 'skimage', 'datetime', 'typing', 'tqdm'
 ]
 
 # -- Options for HTML output -------------------------------------------------
