@@ -36,6 +36,7 @@ Documentation Contents
    evaluatation_pipeline
    robustness_metrics
    performance_visualization
+   SegmentationPerformancePrecision
    sample
    api_reference
 
