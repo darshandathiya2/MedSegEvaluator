@@ -13,6 +13,111 @@ class PerformanceVisualization:
     """
 
     @staticmethod
+    def histogram_comparison(
+        data1,
+        data2,
+        label1="Set 1",
+        label2="Set 2",
+        xlabel="Value",
+        ylabel="Count",
+        title="Distribution Comparison",
+        caption=None,
+        bins=20,
+        colors=None,
+        save_path=None
+        ):
+        r"""
+        Plot an overlapping histogram comparison between two numeric datasets
+        using color-blind–friendly colors.
+    
+        Suitable for comparing Dice, area, volume, and other quantitative
+        performance measures.
+    
+        Parameters
+        ----------
+        data1, data2 : array-like
+            Numeric data.
+        label1, label2 : str, optional
+            Legends.
+        xlabel, ylabel, title : str, optional
+            Labels.
+        caption : str or None, optional
+            Optional caption.
+        bins : int, optional
+            Number of bins.
+        colors : tuple or None, optional
+            Custom colors (hex or names). If None, uses color-blind safe palette.
+        save_path : str or None, optional
+            Path to save figure.
+    
+        Returns
+        -------
+        tuple
+            (Figure, Axes)
+        """
+        # Okabe–Ito color-blind safe defaults
+        if colors is None:
+            colors = ("#0072B2", "#E69F00")  # Blue, Orange
+    
+        # Convert inputs
+        data1 = np.asarray(data1, dtype=float)
+        data2 = np.asarray(data2, dtype=float)
+    
+        # Remove NaNs
+        data1 = data1[~np.isnan(data1)]
+        data2 = data2[~np.isnan(data2)]
+    
+        if data1.size == 0 or data2.size == 0:
+            raise ValueError("Input data must not be empty.")
+    
+        # Dynamic bins
+        min_val = min(data1.min(), data2.min())
+        max_val = max(data1.max(), data2.max())
+        bin_edges = np.linspace(min_val, max_val, bins + 1)
+    
+        # Plot
+        fig, ax = plt.subplots(figsize=(7, 5))
+    
+        ax.hist(
+            data1,
+            bins=bin_edges,
+            alpha=0.5,
+            label=label1,
+            color=colors[0],
+            edgecolor="black"
+        )
+    
+        ax.hist(
+            data2,
+            bins=bin_edges,
+            alpha=0.5,
+            label=label2,
+            color=colors[1],
+            edgecolor="black"
+        )
+    
+        # Labels
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        ax.legend()
+    
+        fig.tight_layout()
+    
+        # Caption
+        if caption:
+            fig.text(
+                0.5, -0.08, caption,
+                ha="center", fontsize=9, style="italic"
+            )
+    
+        if save_path:
+            fig.savefig(save_path, dpi=300, bbox_inches="tight")
+    
+        return fig, ax
+
+
+    @staticmethod
     def bland_altman_plot_interactive(
         values1,
         values2,
@@ -281,6 +386,7 @@ class PerformanceVisualization:
     
     
         return fig
+
 
 
 
