@@ -5,7 +5,7 @@ from matplotlib.lines import Line2D
 import seaborn as sns
 from skimage import measure
 import plotly.graph_objects as go
-
+import plotly.express as px
 
 class PerformanceVisualization:
     r"""
@@ -164,6 +164,126 @@ class PerformanceVisualization:
         fig.show()
 
         return mean_diff, loa_upper, loa_lower
+
+
+    @staticmethod
+    def delta_dice_diverging_bar_plot(
+        delta_values,
+        ids=None,
+        title="Diverging Bar Plot of Delta Dice Under Perturbation",
+        xlabel="Images",
+        ylabel="Δ Dice",
+        show=True
+        ):
+        r"""
+        Generate an interactive diverging bar plot to visualize changes
+        in Dice score under perturbation.
+    
+        Positive Δ Dice values (shown in red) indicate performance degradation,
+        while negative Δ Dice values (shown in green) indicate performance
+        improvement.
+    
+        This function accepts lists, NumPy arrays, Pandas Series, or
+        DataFrame columns as input.
+    
+        Parameters
+        ----------
+        delta_values : array-like
+            Δ Dice values (list, NumPy array, Pandas Series, or DataFrame column).
+        ids : array-like or None, optional
+            Image/sample identifiers.
+        title : str, optional
+            Plot title.
+        xlabel : str, optional
+            X-axis label.
+        ylabel : str, optional
+            Y-axis label.
+        show : bool, optional
+            Whether to display the plot.
+    
+        Returns
+        -------
+        plotly.graph_objects.Figure
+            Interactive Plotly figure object.
+        """
+
+        # Convert delta values to numpy array
+        delta = np.asarray(delta_values, dtype=float)
+    
+        # Validate input
+        if delta.ndim != 1:
+            raise ValueError("delta_values must be a 1D array-like object.")
+    
+        n = len(delta)
+    
+        # Handle IDs
+        if ids is None:
+            ids = [f"Sample {i+1}" for i in range(n)]
+        else:
+            ids = np.asarray(ids)
+    
+            if len(ids) != n:
+                raise ValueError("ids must have same length as delta_values.")
+    
+        # Build DataFrame
+        df = pd.DataFrame({
+            "index": np.arange(n),
+            "delta_dice": delta,
+            "id": ids
+        })
+    
+        # Sort by delta
+        df = df.sort_values("delta_dice")
+    
+        # Assign effect
+        df["effect"] = np.where(
+            df["delta_dice"] > 0,
+            "Decrease (Worse)",
+            "Increase (Better)"
+        )
+    
+        # Color map
+        color_map = {
+            "Decrease (Worse)": "red",
+            "Increase (Better)": "green"
+        }
+    
+        # Plot
+        fig = px.bar(
+            df,
+            x="index",
+            y="delta_dice",
+            color="effect",
+            color_discrete_map=color_map,
+            hover_data=["id", "delta_dice"],
+            labels={
+                "index": xlabel,
+                "delta_dice": ylabel,
+                "effect": "Effect"
+            },
+            title=title
+        )
+    
+        # Zero reference
+        fig.add_hline(y=0)
+    
+        # Layout
+        fig.update_layout(
+            title_x=0.5,
+            width=900,
+            height=600,
+            legend_title_text="Perturbation Effect"
+        )
+    
+        if show:
+            fig.show()
+            return None
+    
+    
+        return fig
+
+
+
 
 
 
