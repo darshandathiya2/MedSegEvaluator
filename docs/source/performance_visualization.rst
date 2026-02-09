@@ -10,9 +10,10 @@ MedSegEvaluator provides three primary visualization functions:
 - **Bland–Altman Plot:** — analyze agreement and bias between two sets of measurements (e.g., GT vs prediction, or model A vs                                          model B).
 
 
-.. autoclass:: medsegevaluator.performance_visualization
+.. autoclass:: medsegevaluator.performance_visualization.PerformanceVisualization
    :members:
    :undoc-members:
    :show-inheritance:
+
 
 
