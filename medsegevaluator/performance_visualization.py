@@ -387,6 +387,202 @@ class PerformanceVisualization:
     
         return fig
 
+    @staticmethod
+    def dice_boxplot_under_perturbations_interactive(
+        data=None,
+        values=None,
+        ids=None,
+        perturbations=None,
+        dice_columns=None,
+        title="Dice Distribution under Perturbations",
+        x_label="Perturbation",
+        y_label="Dice Score",
+        jitter=0.12,
+        point_size=6,
+        box_width=0.5,
+        show=True
+        ):
+        """
+        Interactive boxplot of Dice scores under different perturbations.
+    
+        If a DataFrame is provided and contains 'image_id',
+        it is automatically used for hover labels.
+    
+        Parameters
+        ----------
+        data : pd.DataFrame, optional
+        values : array-like, optional
+        ids : array-like, optional
+        perturbations : array-like, optional
+        dice_columns : list, optional
+        show : bool
+    
+        Returns
+        -------
+        fig : plotly.graph_objects.Figure or None
+        """
+    
+        import numpy as np
+        import plotly.graph_objects as go
+    
+        # =====================================================
+        # 1. DataFrame Mode
+        # =====================================================
+    
+        if data is not None:
+    
+            # Auto-detect Dice columns
+            if dice_columns is None:
+                dice_columns = [
+                    c for c in data.columns
+                    if c.lower().startswith("dice")
+                ]
+    
+            if len(dice_columns) == 0:
+                raise ValueError("No Dice columns found.")
+    
+            # Convert to long format
+            df_long = data.melt(
+                id_vars=["image_id"] if "image_id" in data.columns else None,
+                value_vars=dice_columns,
+                var_name="Perturbation",
+                value_name="Dice"
+            )
+    
+            # Clean labels
+            df_long["Perturbation"] = (
+                df_long["Perturbation"]
+                .str.replace("dice_", "", case=False)
+                .str.replace("_", " ")
+                .str.title()
+            )
+    
+            # Extract arrays
+            values = df_long["Dice"].values
+            perturbations = df_long["Perturbation"].values
+    
+            # Use image_id if available
+            if "image_id" in df_long.columns:
+                ids = df_long["image_id"].astype(str).values
+            else:
+                ids = df_long.index.astype(str).values
+    
+        # =====================================================
+        # 2. Array Mode
+        # =====================================================
+    
+        else:
+    
+            values = np.asarray(values, dtype=float)
+            perturbations = np.asarray(perturbations, dtype=str)
+            ids = np.asarray(ids, dtype=str)
+    
+            if not (len(values) == len(perturbations) == len(ids)):
+                raise ValueError("values, ids, perturbations must match in length.")
+    
+        # =====================================================
+        # 3. Groups
+        # =====================================================
+    
+        unique_groups = np.unique(perturbations)
+    
+        group_positions = {
+            grp: float(i) for i, grp in enumerate(unique_groups)
+        }
+    
+        fig = go.Figure()
+    
+        # =====================================================
+        # 4. Box Traces
+        # =====================================================
+    
+        for grp in unique_groups:
+    
+            mask = perturbations == grp
+            grp_values = values[mask]
+    
+            x_pos = group_positions[grp]
+    
+            fig.add_trace(go.Box(
+                x=np.full(len(grp_values), x_pos),
+                y=grp_values,
+                name=str(grp),
+                boxpoints="outliers",
+                marker=dict(size=point_size),
+                boxmean=False,
+                width=box_width,
+                showlegend=False,
+                hoverinfo="skip"
+            ))
+    
+        # =====================================================
+        # 5. Scatter (Hover IDs)
+        # =====================================================
+    
+        for grp in unique_groups:
+    
+            mask = perturbations == grp
+    
+            grp_values = values[mask]
+            grp_ids = ids[mask]
+    
+            x_center = group_positions[grp]
+    
+            jittered_x = (
+                x_center +
+                (np.random.rand(len(grp_values)) - 0.5) * jitter
+            )
+    
+            fig.add_trace(go.Scatter(
+                x=jittered_x,
+                y=grp_values,
+                mode="markers",
+                marker=dict(
+                    size=point_size,
+                    color="rgba(0,0,0,0.6)"
+                ),
+                text=[
+                    f"<b>Image:</b> {pid}"
+                    f"<br><b>Dice:</b> {val:.4f}"
+                    for pid, val in zip(grp_ids, grp_values)
+                ],
+                hovertemplate="%{text}<extra></extra>",
+                showlegend=False
+            ))
+    
+        # =====================================================
+        # 6. Layout
+        # =====================================================
+    
+        fig.update_layout(
+    
+            title=dict(text=title, x=0.5),
+    
+            xaxis=dict(
+                tickmode="array",
+                tickvals=list(group_positions.values()),
+                ticktext=list(group_positions.keys()),
+                title=x_label
+            ),
+    
+            yaxis=dict(title=y_label),
+    
+            template="plotly_white",
+    
+            margin=dict(l=60, r=30, t=60, b=60),
+    
+            hoverlabel=dict(bgcolor="white", font_size=13)
+        )
+    
+        # =====================================================
+        # 7. Show / Return
+        # =====================================================
+    
+        if show:
+            fig.show()
+            return None
+    
+        return fig
 
 
 
