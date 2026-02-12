@@ -34,7 +34,7 @@ Documentation Contents
    medical_image_loader 
    med_seg_metrics
    perturbation
-   robustness_evaluatation
+   robustness_evaluator
    robustness_metrics
    performance_visualization
    performance_precision
