@@ -1,7 +1,7 @@
 Medical Image Loader
 ====================
 
-.. module:: medical_image_loader
+.. module:: medsegevaluator.medical_image_loader
 
 The ``medical_image_loader`` module provides a unified interface for loading
 medical images and segmentation masks in multiple formats. It is designed
