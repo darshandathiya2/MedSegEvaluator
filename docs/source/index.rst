@@ -31,6 +31,7 @@ Documentation Contents
    getting_started
    installation
    usage
+   medical_image_loader 
    med_seg_metrics
    perturbation
    robustness_evaluatation
