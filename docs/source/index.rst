@@ -33,7 +33,7 @@ Documentation Contents
    usage
    med_seg_metrics
    perturbation
-   evaluatation_pipeline
+   robustness_evaluatation
    robustness_metrics
    performance_visualization
    performance_precision
