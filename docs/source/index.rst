@@ -7,7 +7,6 @@ MedSegEvaluator provides:
 
 - Slice-level and volume-level Dice computation
 - Support for multiple perturbations to assess model robustness
-- Global Robustness Score (GRS)
 - Visualization utilities
 - Easy integration into any deep learning pipeline
 
