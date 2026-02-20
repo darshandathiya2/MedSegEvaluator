@@ -31,7 +31,11 @@ Class Reference
 RobustnessEvaluator
 ^^^^^^^^^^^^^^^^^^^
 
-.. class:: RobustnessEvaluator(model, loader=None, threshold=0.5)
+.. autoclass:: RobustnessEvaluator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
    Main class for robustness evaluation.
 
