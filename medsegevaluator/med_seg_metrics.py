@@ -620,6 +620,64 @@ class MedicalSegmentationMetrics:
         return np.clip(ccc, -1.0, 1.0), rho
 
 
+        # ----------------------------- #
+    # Wrapper for easy evaluation
+    # ----------------------------- #
+    @staticmethod
+    def evaluate_all_metrics(y_true: np.ndarray,
+                             y_pred: np.ndarray,
+                             voxel_spacing=None,
+                             tolerance_mm: float = 1.0):
+        r"""
+        Compute all segmentation metrics at once.
+
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Ground truth binary mask.
+
+        y_pred : np.ndarray
+            Predicted binary mask.
+
+        voxel_spacing : list, tuple, or float, optional
+            Physical voxel spacing (for surface-based metrics).
+
+        tolerance_mm : float, optional
+            Tolerance in mm for NSD computation (default = 1.0).
+
+        Returns
+        -------
+        dict
+            Dictionary containing all metric values.
+        """
+
+        metrics = {}
+
+        # Region-based metrics
+        metrics["Dice"] = MedicalSegmentationMetrics.dice(y_true, y_pred)
+        metrics["IoU"] = MedicalSegmentationMetrics.iou(y_true, y_pred)
+        metrics["Accuracy"] = MedicalSegmentationMetrics.accuracy(y_true, y_pred)
+        metrics["Precision"] = MedicalSegmentationMetrics.precision(y_true, y_pred)
+        metrics["Recall"] = MedicalSegmentationMetrics.recall(y_true, y_pred)
+        metrics["Specificity"] = MedicalSegmentationMetrics.specificity(y_true, y_pred)
+
+        # Boundary-based metrics
+        metrics["Hausdorff"] = MedicalSegmentationMetrics.hausdorff_distance(y_true, y_pred)
+        metrics["HD95"] = MedicalSegmentationMetrics.hd95(y_true, y_pred)
+        metrics["ASD"] = MedicalSegmentationMetrics.average_surface_distance(
+            y_true, y_pred, voxel_spacing
+        )
+        metrics["NSD"] = MedicalSegmentationMetrics.nsd(
+            y_true, y_pred,
+            tolerance_mm=tolerance_mm,
+            voxel_spacing=voxel_spacing
+        )
+
+        # Volume-based metrics
+        metrics["Volumetric_Similarity"] = MedicalSegmentationMetrics.volumetric_similarity(y_true, y_pred)
+        metrics["Relative_Volume_Difference"] = MedicalSegmentationMetrics.relative_volume_difference(y_true, y_pred)
+
+        return metrics
 
 
 
