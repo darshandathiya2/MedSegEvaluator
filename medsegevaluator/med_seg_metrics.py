@@ -60,6 +60,120 @@ class MedicalSegmentationMetrics:
         union = np.logical_or(y_true, y_pred).sum()
         return intersection / (union + 1e-6)
 
+
+    @staticmethod
+    def us(y_true: np.ndarray, y_pred: np.ndarray):
+        r"""
+        Compute Under-Segmentation (US) index between two binary segmentation masks.
+
+        .. math::
+          US = \frac{|Y - (X \cap Y)|}{|Y|} = \frac{FN}{|Y|}
+
+        where:
+        - :math:`X` denotes the predicted mask
+        - :math:`Y` denotes the ground truth mask
+        - :math:`FN` denotes false negative pixels
+
+        A value of:
+        - 0 indicates perfect segmentation (no under-segmentation)
+        - 1 indicates complete miss (no overlap)
+
+        Args:
+            y_true : np.ndarray
+                Ground-truth binary mask.
+            y_pred : np.ndarray
+                Predicted binary mask.
+
+        Returns
+        -------
+        float
+            Under-Segmentation index.
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+
+        intersection = np.logical_and(y_true, y_pred).sum()
+        fn = y_true.sum() - intersection
+
+        return fn / (y_true.sum() + 1e-6)
+
+    @staticmethod
+    def os(y_true: np.ndarray, y_pred: np.ndarray):
+            r"""
+            Compute Over-Segmentation (OS) index between two binary segmentation masks.
+    
+            .. math::
+              OS = \frac{|X - (X \cap Y)|}{|Y|} = \frac{FP}{|Y|}
+    
+            where:
+            - :math:`X` denotes the predicted mask
+            - :math:`Y` denotes the ground truth mask
+            - :math:`FP` denotes false positive pixels
+    
+            A value of:
+            - 0 indicates no over-segmentation
+            - >0 indicates extra segmented pixels outside the ground truth
+    
+            Args:
+                y_true : np.ndarray
+                    Ground-truth binary mask.
+                y_pred : np.ndarray
+                    Predicted binary mask.
+    
+            Returns
+            -------
+            float
+                Over-Segmentation index.
+            """
+            y_true = y_true.astype(bool)
+            y_pred = y_pred.astype(bool)
+    
+            intersection = np.logical_and(y_true, y_pred).sum()
+            fp = y_pred.sum() - intersection
+    
+            return fp / (y_true.sum() + 1e-6)
+
+
+    @staticmethod
+    def us_os(y_true: np.ndarray, y_pred: np.ndarray):
+        r"""
+        Compute combined Under-Segmentation / Over-Segmentation (US-OS) index.
+
+        .. math::
+          US\text{-}OS = \frac{|(X \cup Y) - (X \cap Y)|}{|Y|}
+                      = \frac{FP + FN}{|Y|}
+
+        where:
+        - :math:`X` denotes the predicted mask
+        - :math:`Y` denotes the ground truth mask
+        - :math:`FP` denotes false positive pixels
+        - :math:`FN` denotes false negative pixels
+
+        A value of:
+        - 0 indicates perfect segmentation
+        - >0 indicates segmentation errors
+
+        Args:
+            y_true : np.ndarray
+                Ground-truth binary mask.
+            y_pred : np.ndarray
+                Predicted binary mask.
+
+        Returns
+        -------
+        float
+            Combined US-OS index.
+        """
+        y_true = y_true.astype(bool)
+        y_pred = y_pred.astype(bool)
+
+        intersection = np.logical_and(y_true, y_pred).sum()
+
+        fp = y_pred.sum() - intersection
+        fn = y_true.sum() - intersection
+
+        return (fp + fn) / (y_true.sum() + 1e-6)
+    
     @staticmethod
     def accuracy(y_true: np.ndarray, y_pred: np.ndarray):
         r"""
